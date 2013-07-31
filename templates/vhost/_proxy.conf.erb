@@ -17,6 +17,9 @@
   <% if @forward_host_header -%>
         proxy_set_header           Host  $host;
   <% end -%>
+  <% if @set_host_header -%>
+        proxy_set_header           Host  '<%= @set_host_header %>';
+  <% end -%>
 
         client_max_body_size       <%= @client_max_body_size %>;
         client_body_buffer_size    128k;

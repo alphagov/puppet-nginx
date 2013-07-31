@@ -44,6 +44,7 @@ define nginx::vhost::proxy (
   $isdefaultvhost      = false,
   $proxy               = true,
   $forward_host_header = true,
+  $set_host_header     = undef,
   $client_max_body_size = '10m',
 ) {
 
@@ -54,6 +55,10 @@ define nginx::vhost::proxy (
     $srvname = $name
   } else {
     $srvname = $servername
+  }
+
+  if ($set_host_header and $forward_host_header) {
+    fail("Cannot use both set_host_header and forward_host_header!")
   }
 
   file { "${nginx::params::vdir}/${priority}-${name}_proxy":
