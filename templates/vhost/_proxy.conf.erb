@@ -12,8 +12,13 @@
         proxy_set_header           X-Real-IP   $remote_addr;
         proxy_set_header           X-Forwarded-For  $proxy_add_x_forwarded_for;
         proxy_set_header           X-Forwarded-Proto  $scheme;
-        proxy_set_header           X-Forwarded-Server  $host;
+      <% if @proxy_append_forwarded_host -%>
+        proxy_set_header           X-Forwarded-Server  "$http_x_forwarded_server,$host";
+        proxy_set_header           X-Forwarded-Host  "$http_x_forwarded_host,$host";
+      <% else -%>
+        proxy_set_header           X-Forwarded-Server $host;
         proxy_set_header           X-Forwarded-Host  $host;
+      <% end -%>
   <% if @forward_host_header -%>
         proxy_set_header           Host  $host;
   <% end -%>
