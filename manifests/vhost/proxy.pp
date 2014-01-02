@@ -44,6 +44,7 @@ define nginx::vhost::proxy (
   $isdefaultvhost      = false,
   $proxy               = true,
   $proxy_magic         = '',
+  $proxy_append_forwarded_host = false,
   $forward_host_header = true,
   $client_max_body_size = '10m',
   $access_logs         = { '{name}.access.log' => '' },
