@@ -7,6 +7,7 @@
 # Debian/ubuntu at present.
 #
 class nginx::server (
+  $version                       = present,
   $threadcount                   = $nginx::params::threadcount,
   $server_names_hash_bucket_size = $nginx::params::server_names_hash_bucket_size,
   $default_ssl_path              = $nginx::params::default_ssl_path,
@@ -28,7 +29,7 @@ class nginx::server (
   }
 
   package{ 'nginx':
-    ensure => present,
+    ensure => $version,
     name   => $nginx::params::package,
   }
 
