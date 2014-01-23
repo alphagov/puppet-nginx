@@ -33,6 +33,18 @@ class nginx::server (
     name   => $nginx::params::package,
   }
 
+  if $operatingsystem == 'ubuntu' {
+
+    package{ 'nginx-common':
+      ensure => $version,
+    }
+
+    package{ 'nginx-full':
+      ensure => $version,
+    }
+
+  }
+
   service{ 'nginx':
     ensure     => running,
     name       => $nginx::params::service,
