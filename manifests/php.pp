@@ -20,6 +20,7 @@ define nginx::php (
   $ssl_port       = '443',
   $ssl_path       = $nginx::server::default_ssl_path,
   $ssl_cert       = $nginx::server::default_ssl_cert,
+  $ssl_ciphers    = $nginx::server::default_ssl_ciphers,
   $ssl_key        = $nginx::server::default_ssl_key,
   $sslonly        = false,
   $serveraliases  = undef,
