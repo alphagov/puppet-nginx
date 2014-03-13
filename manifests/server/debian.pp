@@ -1,8 +1,9 @@
+# nginx::server::debian
 class nginx::server::debian {
 
   include nginx::params
 
-  if $lsbdistcodename == 'squeeze' {
+  if $::lsbdistcodename == 'squeeze' {
     apt::pin{ 'nginx':
       release  => 'squeeze-backports',
       priority => '1001',

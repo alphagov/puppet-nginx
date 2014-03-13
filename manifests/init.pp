@@ -8,17 +8,18 @@
 #
 # Requires:
 #
-# Sample Usage:
+# Sample Usage: include nginx
 #
 class nginx {
 
   include nginx::params
 
   if ! $nginx::params::package {
-    fail( "No nginx possible on ${hostname}" )
+    fail( "No nginx possible on ${::hostname}" )
   }
 
-  # We should monitor the state of nignx, though I am not sure this should be here
+  # We should monitor the state of nginx, though I am not sure this should be
+  # here
   if defined(Class['munin'])  { include metrics::munin::nginx }
 
 }

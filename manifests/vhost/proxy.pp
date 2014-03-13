@@ -64,7 +64,7 @@ define nginx::vhost::proxy (
     content => template($template),
     owner   => 'root',
     group   => '0',
-    mode    => '755',
+    mode    => '0755',
     require => Package['nginx'],
     notify  => Service['nginx'],
   }

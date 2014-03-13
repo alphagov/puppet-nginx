@@ -9,7 +9,8 @@
 class nginx::server (
   $version                       = present,
   $threadcount                   = $nginx::params::threadcount,
-  $server_names_hash_bucket_size = $nginx::params::server_names_hash_bucket_size,
+  $server_names_hash_bucket_size =
+      $nginx::params::server_names_hash_bucket_size,
   $default_ssl_path              = $nginx::params::default_ssl_path,
   $default_ssl_cert              = $nginx::params::default_ssl_cert,
   $default_ssl_key               = $nginx::params::default_ssl_key,
@@ -24,8 +25,9 @@ class nginx::server (
   include nginx::params
 
   # Platform specific server setup items
-  case $operatingsystem {
+  case $::operatingsystem {
     'debian': { include nginx::server::debian }
+    default: { }
   }
 
   package{ 'nginx':
@@ -33,7 +35,7 @@ class nginx::server (
     name   => $nginx::params::package,
   }
 
-  if $operatingsystem == 'ubuntu' {
+  if $::operatingsystem == 'ubuntu' {
 
     package{ 'nginx-common':
       ensure => $version,

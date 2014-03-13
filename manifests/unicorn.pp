@@ -49,7 +49,10 @@ define nginx::unicorn(
   # through. This means just files are assumed to be socket. If it's
   # something else (unix/http) all good, otherwise fail.
   case $unicorn_socket {
-    /^(unix|https?):/: { $unicorn_upstream = regsubst( $unicorn_socket, '^(https?://)(.+?)/?$', '\2' , 'I' ) }
+    /^(unix|https?):/: {
+      $unicorn_upstream = regsubst(
+                            $unicorn_socket, '^(https?://)(.+?)/?$', '\2' , 'I')
+    }
     /^\//:             { $unicorn_upstream = "unix:${unicorn_socket}" }
     default:           { fail( "Value of ${unicorn_socket} is unsupported.")}
   }

@@ -1,3 +1,4 @@
+# nginx::loadbalancer
 define nginx::loadbalancer(
   $workers,
   $backups      = [],
@@ -13,7 +14,8 @@ define nginx::loadbalancer(
   $max_fails    = 3,
   $fail_timeout = 10,
   $proto        = 'http',
-  $magic        = '',     # Accept arbitrary template data to append to the vhost
+  $magic        = '',     # Accept arbitrary template data to append to the
+                          # vhost
 ) {
 
   include nginx
@@ -39,7 +41,7 @@ define nginx::loadbalancer(
     content => template($template),
     owner   => 'root',
     group   => '0',
-    mode    => '644',
+    mode    => '0644',
     require => Package['nginx'],
     notify  => Service['nginx'],
   }
