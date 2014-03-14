@@ -32,7 +32,7 @@ define nginx::php (
 
   if $::operatingsystem != 'Debian' {
     err('Nginx php only works on debian currently.')
-    fail('Nginx php need debian.')
+    fail('Nginx php needs debian.')
   }
 
   apt::source { 'dotdeb':
