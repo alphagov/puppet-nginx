@@ -15,6 +15,11 @@
       <% if @proxy_append_forwarded_host -%>
         proxy_set_header           X-Forwarded-Server  "$http_x_forwarded_server,$host";
         proxy_set_header           X-Forwarded-Host  "$http_x_forwarded_host,$host";
+      <% elsif @proxy_set_forwarded_host -%>
+        # Some app servers (Django) don't support lists of forwarded hosts so
+        # if we want to proxy the X-Forwarded-Host we need to set it.
+        proxy_set_header           X-Forwarded-Server  "$http_x_forwarded_server";
+        proxy_set_header           X-Forwarded-Host  "$http_x_forwarded_host";
       <% else -%>
         proxy_set_header           X-Forwarded-Server $host;
         proxy_set_header           X-Forwarded-Host  $host;
