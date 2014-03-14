@@ -45,6 +45,7 @@ define nginx::vhost::proxy (
   $proxy               = true,
   $proxy_magic         = '',
   $proxy_append_forwarded_host = false,
+  $proxy_set_forwarded_host = false,
   $forward_host_header = true,
   $client_max_body_size = '10m',
   $access_logs         = { '{name}.access.log' => '' },
@@ -58,6 +59,10 @@ define nginx::vhost::proxy (
     $srvname = $name
   } else {
     $srvname = $servername
+  }
+
+  if $proxy_append_forwarded_host and $proxy_set_forwarded_host {
+    fail('Forwarded host cannot be both set and appended to')
   }
 
   file { "${nginx::params::vdir}/${priority}-${name}_proxy":
