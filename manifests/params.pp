@@ -16,9 +16,9 @@ class nginx::params {
 
   # allow people to disable server_tokens - by default we shouldn't
   # leak this information
-  $server_tokens = "off"
+  $server_tokens = 'off'
 
-  case $operatingsystem {
+  case $::operatingsystem {
     'debian',
     'ubuntu': {
         $package         = 'nginx'
@@ -29,7 +29,7 @@ class nginx::params {
         $etcdir          = '/etc/nginx'
         $vdir            = "${etcdir}/sites-enabled"
         $confd           = "${etcdir}/conf.d"
-        $threadcount     = $processorcount
+        $threadcount     = $::processorcount
         $phpfpm_service  = 'php5-fpm'
         $fastcgi_params  = '/etc/nginx/fastcgi_params'
         $user            = 'www-data'
@@ -49,7 +49,7 @@ class nginx::params {
         $default_webroot = '/usr/local/www'
       }
     default: {
-        warning( "Sorry, nginx module isn't built for ${operatingsystem} yet." )
+        warning("Sorry, nginx module isn't built for ${::operatingsystem} yet.")
     }
   }
 
