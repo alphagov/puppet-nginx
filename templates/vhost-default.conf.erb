@@ -11,11 +11,11 @@ server {
   <%= scope.function_template(['nginx/vhost/_logging.conf.erb']) %>
 
   location / {
-    root <%= docroot %>;
+    root <%= @docroot %>;
     <%= scope.function_template(['nginx/vhost/_index.conf.erb']) %>
   }
 
   # Anything here is added by use of "magic" so is pretty jazzy.
-  <%= magic %>
+  <%= @magic %>
 }
 
