@@ -50,6 +50,7 @@ define nginx::vhost::proxy (
   $client_max_body_size = '10m',
   $access_logs         = { '{name}.access.log' => '' },
   $error_logs          = { '{name}.error.log' => '' },
+  $denied_http_verbs   = [],
 ) {
 
   include nginx
@@ -64,6 +65,8 @@ define nginx::vhost::proxy (
   if $proxy_append_forwarded_host and $proxy_set_forwarded_host {
     fail('Forwarded host cannot be both set and appended to')
   }
+
+  validate_array($denied_http_verbs)
 
   file { "${nginx::params::vdir}/${priority}-${name}_proxy":
     content => template($template),
