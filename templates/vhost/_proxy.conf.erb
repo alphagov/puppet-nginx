@@ -40,6 +40,8 @@
         proxy_busy_buffers_size    64k;
         proxy_temp_file_write_size 64k;
   <% if @denied_http_verbs and @denied_http_verbs.length > 0 -%>
+        # Join denied verbs together into an alternation statement
+        # ['PURGE', 'DELETE'] -> '^(?:PURGE|DELETE)$'
         if ( $request_method ~ '^(?:<%= @denied_http_verbs.join('|') -%>)$' ) {
           return 403;
         }
